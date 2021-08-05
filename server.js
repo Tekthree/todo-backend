@@ -1,30 +1,43 @@
 'use strict';
 
+require('dotenv').config();
+
+//===================== dependencies ============================
 const express = require('express');
 const base64 = require('base-64');
 const cors = require('cors');
-require('dotenv').config();
 
+
+//===================== db ============================
 const { todos, users } = require('./model/index.js');
 
+
+//===================== set up app ============================
 const app = express();
+const PORT = process.env.PORT || 3002;
 app.use(cors());
 app.use(express.json());
 
+//===================== routes ============================
+
+app.get("/", (req, res) => {
+  res.status(200).send("todo app backend API is in full effect");
+});
+
 app.get('/todos', (req,res)=>{
-  res.json({text: 'test'});
+  res.status(200).json({text: 'test'});
 })
 
 app.post('/todos', (req,res)=>{
-  res.json({text: 'test'});
+  res.status(200).json({text: 'test'});
 })
 
 app.put('/todos/:id', (req,res)=>{
-  res.json({text: 'test'});
+  res.status(200).json({text: 'test'});
 })
 
 app.delete('/todos/:id', (req,res)=>{
-  res.json({text: 'test'});
+  res.status(200).json({text: 'test'});
 })
 
 app.post('/signup', async (req, res) => {
@@ -46,6 +59,9 @@ app.post('/signin', async (req, res) => {
   });
 });
 
+
+//===================== listen ============================
+app.listen(PORT, () => console.log(`Listening on Port ${PORT}`));
 
 module.exports = {
   app: app,
